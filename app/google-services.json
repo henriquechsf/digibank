@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "633727544056",
+    "project_id": "digitalbank-fdd30",
+    "storage_bucket": "digitalbank-fdd30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633727544056:android:1ca673e2f6761749e1e90d",
+        "android_client_info": {
+          "package_name": "com.example.digitalbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633727544056-13kp8geca4984hcfnaqfc4qau62gbs31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.digitalbank",
+            "certificate_hash": "8c828340d8bdd52975d6c02032c5212675c2975c"
+          }
+        },
+        {
+          "client_id": "633727544056-nctkcn05hlek4vjvkg63fbvvcbck8oi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBriAE_YrsV8ClXPNR2n9ggHhEWb-hpXcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633727544056-nctkcn05hlek4vjvkg63fbvvcbck8oi3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
