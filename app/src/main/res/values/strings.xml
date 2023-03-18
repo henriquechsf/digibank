@@ -19,4 +19,13 @@
     <!-- forgot password screen -->
     <string name="btn_send_email">Send email</string>
     <string name="forgot_password_message">Input your email to receive a link to forgot your password.</string>
+
+    <!-- home screen -->
+    <string name="card_text_deposit">Deposit</string>
+    <string name="card_text_cellphone_recharge">Recharge</string>
+    <string name="card_text_history">History</string>
+    <string name="card_text_transfer">Transfer</string>
+    <string name="card_text_receive">Receive</string>
+    <string name="card_text_my_account">My Account</string>
+    <string name="card_text_sign_out">Sign Out</string>
 </resources>

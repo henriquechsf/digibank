@@ -10,4 +10,6 @@
     <dimen name="btn_height">56dp</dimen>
     <dimen name="btn_text_size">16sp</dimen>
     <dimen name="text_link_size">16sp</dimen>
+    <dimen name="card_corner_radius">5dp</dimen>
+    <dimen name="card_icon_size">26dp</dimen>
 </resources>
