@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.register.RegisterFragment">
+    tools:context=".ui.login.LoginFragment">
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,18 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_large"
             android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_user"
-                android:hint="@string/label_name">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_name"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -52,38 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
-                app:startIconDrawable="@drawable/ic_phone"
-                android:hint="@string/label_phone">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_phone"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
                 app:startIconDrawable="@drawable/ic_password"
                 android:hint="@string/label_password">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_password"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                app:startIconDrawable="@drawable/ic_password"
-                android:hint="@string/label_confirm_password">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_confirm_password"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,6 +58,30 @@
                 android:background="@drawable/background_btn"
                 android:textSize="@dimen/btn_text_size"
                 android:text="@string/btn_register"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_large">
+
+                <TextView
+                    android:id="@+id/tv_create_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/create_account"
+                    android:textSize="@dimen/text_link_size"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/forgot_password"
+                    android:textAlignment="textEnd"
+                    android:textSize="@dimen/text_link_size"/>
+
+            </LinearLayout>
 
             <ProgressBar
                 android:layout_width="wrap_content"

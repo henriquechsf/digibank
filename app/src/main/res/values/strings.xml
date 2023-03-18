@@ -10,4 +10,8 @@
     <string name="label_password">Password</string>
     <string name="label_confirm_password">Confirm Password</string>
     <string name="btn_register">Register</string>
+
+    <!-- login screen -->
+    <string name="create_account">Create account</string>
+    <string name="forgot_password">Forgot password</string>
 </resources>
