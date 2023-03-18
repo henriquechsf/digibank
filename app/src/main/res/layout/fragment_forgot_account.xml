@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginFragment">
+    tools:context=".ui.forgot_account.ForgotAccountFragment">
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,32 +23,26 @@
             android:layout_margin="@dimen/margin_large"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                app:startIconDrawable="@drawable/ic_email"
-                android:hint="@string/label_email">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_email"
-                    android:inputType="textEmailAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="@dimen/margin_large"
+                android:text="@string/forgot_password_message"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
-                app:startIconDrawable="@drawable/ic_password"
-                android:hint="@string/label_password">
+                android:hint="@string/label_email"
+                app:startIconDrawable="@drawable/ic_email">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_password"
-                    android:inputType="textPassword"
+                    android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -56,32 +51,8 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/background_btn"
-                android:textSize="@dimen/btn_text_size"
-                android:text="@string/btn_login"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_large">
-
-                <TextView
-                    android:id="@+id/tv_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/create_account"
-                    android:textSize="@dimen/text_link_size"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/forgot_password"
-                    android:textAlignment="textEnd"
-                    android:textSize="@dimen/text_link_size"/>
-
-            </LinearLayout>
+                android:text="@string/btn_send_email"
+                android:textSize="@dimen/btn_text_size" />
 
             <ProgressBar
                 android:layout_width="wrap_content"

@@ -14,4 +14,9 @@
     <!-- login screen -->
     <string name="create_account">Create account</string>
     <string name="forgot_password">Forgot password</string>
+    <string name="btn_login">Login</string>
+
+    <!-- forgot password screen -->
+    <string name="btn_send_email">Send email</string>
+    <string name="forgot_password_message">Input your email to receive a link to forgot your password.</string>
 </resources>
