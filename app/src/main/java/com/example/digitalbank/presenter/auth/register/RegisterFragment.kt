@@ -1,4 +1,4 @@
-package com.example.digitalbank.presenter.register
+package com.example.digitalbank.presenter.auth.register
 
 import android.os.Bundle
 import android.view.LayoutInflater

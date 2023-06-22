@@ -12,6 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/blue_500</item>
+    </style>
+
+    <style name="CustomEditText" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/background_edit_text</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:textColorHint">@color/blue_500</item>
+        <item name="android:drawablePadding">@dimen/padding_medium</item>
+        <item name="android:drawableTint">@color/blue_500</item>
     </style>
 </resources>
