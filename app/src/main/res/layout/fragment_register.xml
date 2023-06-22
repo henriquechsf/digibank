@@ -1,93 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".presenter.auth.register.RegisterFragment">
 
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Criar conta" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_large"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/label_name"
+                android:textColorHint="@color/blue_500"
                 app:startIconDrawable="@drawable/ic_user"
-                android:hint="@string/label_name">
+                app:startIconTint="@color/blue_500">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_name"
-                    android:inputType="text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/label_email"
+                android:textColorHint="@color/blue_500"
                 app:startIconDrawable="@drawable/ic_email"
-                android:hint="@string/label_email">
+                app:startIconTint="@color/blue_500">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_email"
-                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:background="@android:color/transparent"
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/label_phone"
+                android:textColorHint="@color/blue_500"
                 app:startIconDrawable="@drawable/ic_phone"
-                android:hint="@string/label_phone">
+                app:startIconTint="@color/blue_500">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_phone"
-                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:background="@android:color/transparent"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/label_password"
+                android:textColorHint="@color/blue_500"
                 app:startIconDrawable="@drawable/ic_password"
-                android:hint="@string/label_password">
+                app:startIconTint="@color/blue_500">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_password"
-                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:background="@android:color/transparent"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/label_confirm_password"
+                android:textColorHint="@color/blue_500"
                 app:startIconDrawable="@drawable/ic_password"
-                android:hint="@string/label_confirm_password">
+                app:startIconTint="@color/blue_500">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_confirm_password"
-                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:background="@android:color/transparent"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -96,17 +132,18 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/background_btn"
-                android:textSize="@dimen/btn_text_size"
-                android:text="@string/btn_register"/>
+                android:text="Cadastrar"
+                android:textSize="@dimen/btn_text_size" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_large"
+                android:indeterminateTint="@color/blue_500"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
         </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
