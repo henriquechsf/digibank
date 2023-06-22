@@ -21,6 +21,9 @@
     <string name="forgot_password_message">Input your email to receive a link to forgot your password.</string>
 
     <!-- home screen -->
+    <string name="text_last_activities">Last Activities</string>
+    <string name="text_see_all">See All</string>
+
     <string name="card_text_deposit">Deposit</string>
     <string name="card_text_cellphone_recharge">Recharge</string>
     <string name="card_text_history">History</string>
@@ -28,4 +31,5 @@
     <string name="card_text_receive">Receive</string>
     <string name="card_text_my_account">My Account</string>
     <string name="card_text_sign_out">Sign Out</string>
+    <string name="notification_icon">Notification icon</string>
 </resources>

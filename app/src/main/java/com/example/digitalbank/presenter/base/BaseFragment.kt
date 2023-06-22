@@ -1,4 +1,4 @@
-package com.example.digitalbank.ui.base
+package com.example.digitalbank.presenter.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
