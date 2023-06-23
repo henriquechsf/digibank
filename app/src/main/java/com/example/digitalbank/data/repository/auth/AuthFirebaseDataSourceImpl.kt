@@ -2,10 +2,10 @@ package com.example.digitalbank.data.repository.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
+import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
-class AuthFirebaseDataSourceImpl(
+class AuthFirebaseDataSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ) : AuthFirebaseDataSource {
 
@@ -45,6 +45,17 @@ class AuthFirebaseDataSourceImpl(
     }
 
     override suspend fun forgot(email: String) {
-        TODO("Not yet implemented")
+        return suspendCoroutine { continuation ->
+            firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resumeWith(Result.success(Unit))
+                    } else {
+                        task.exception?.let {
+                            continuation.resumeWith(Result.failure(it))
+                        }
+                    }
+                }
+        }
     }
 }
