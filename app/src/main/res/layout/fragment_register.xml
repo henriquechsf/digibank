@@ -143,7 +143,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_large"
                 android:indeterminateTint="@color/blue_500"
-                android:visibility="gone"
+                android:visibility="invisible"
                 tools:visibility="visible" />
 
         </LinearLayout>

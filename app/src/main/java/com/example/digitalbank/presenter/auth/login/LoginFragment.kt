@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.digitalbank.R
 import com.example.digitalbank.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,9 +31,17 @@ class LoginFragment : Fragment() {
         initListeners()
     }
 
-    private fun initListeners() {
-        binding.btnLogin.setOnClickListener {
+    private fun initListeners() = with(binding) {
+        btnLogin.setOnClickListener {
 
+        }
+
+        btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        btnForgot.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotAccountFragment)
         }
     }
 
