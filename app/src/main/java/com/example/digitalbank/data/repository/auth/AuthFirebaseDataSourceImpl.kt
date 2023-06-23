@@ -6,12 +6,22 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlin.coroutines.suspendCoroutine
 
 class AuthFirebaseDataSourceImpl(
-    private val firebaseDatabase: FirebaseDatabase,
     private val firebaseAuth: FirebaseAuth
 ) : AuthFirebaseDataSource {
 
     override suspend fun login(email: String, password: String) {
-        TODO("Not yet implemented")
+        return suspendCoroutine { continuation ->
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resumeWith(Result.success(Unit))
+                    } else {
+                        task.exception?.let {
+                            continuation.resumeWith(Result.failure(it))
+                        }
+                    }
+                }
+        }
     }
 
     override suspend fun register(
