@@ -21,4 +21,12 @@
         <item name="android:drawablePadding">@dimen/padding_medium</item>
         <item name="android:drawableTint">@color/blue_500</item>
     </style>
+
+    <style name="CustomBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetWrapper</item>
+    </style>
+
+    <style name="CustomBottomSheetWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

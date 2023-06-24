@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.R
 import com.example.digitalbank.databinding.FragmentLoginBinding
 import com.example.digitalbank.utils.StateView
+import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +35,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
+        showBottomSheet(message = "Teste")
     }
 
     private fun initListeners() = with(binding) {
