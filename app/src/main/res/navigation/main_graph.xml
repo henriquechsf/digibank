@@ -46,7 +46,7 @@
             android:label="fragment_forgot_account"
             tools:layout="@layout/fragment_forgot_account" />
         <action
-            android:id="@+id/action_global_homeFragment"
+            android:id="@+id/action_authentication_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
