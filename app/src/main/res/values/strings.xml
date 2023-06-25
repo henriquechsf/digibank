@@ -8,6 +8,7 @@
     <string name="text_email_empty">Digite seu e-mail</string>
     <string name="text_phone_empty">Digite seu telefone</string>
     <string name="text_password_empty">Digite sua senha</string>
+    <string name="error_generic">Ocorreu um erro, por favor tente novamente mais tarde.</string>
 
     <!-- BottomSheet Dialog -->
     <string name="text_title_bottom_sheet">Atencao</string>
@@ -42,4 +43,11 @@
     <string name="card_text_my_account">My Account</string>
     <string name="card_text_sign_out">Sign Out</string>
     <string name="notification_icon">Notification icon</string>
+
+    <!--    Erros Firebase Authentication-->
+    <string name="account_not_registered_register_fragment">Nenhuma conta encontrada com este e-mail.</string>
+    <string name="invalid_email_register_fragment">Insira um e-mail válido.</string>
+    <string name="invalid_password_register_fragment">Senha inválida, tente novamente.</string>
+    <string name="email_in_use_register_fragment">Este e-mail já está em uso.</string>
+    <string name="strong_password_register_fragment">Insira uma senha mais forte.</string>
 </resources>
