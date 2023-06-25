@@ -2,6 +2,8 @@ package com.example.digitalbank.di
 
 import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSource
 import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSourceImpl
+import com.example.digitalbank.data.repository.profile.ProfileRepository
+import com.example.digitalbank.data.repository.profile.ProfileRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ interface DomainModule {
     fun bindsAuthRepository(
         authFirebaseDataSourceImpl: AuthFirebaseDataSourceImpl
     ): AuthFirebaseDataSource
+
+    @Binds
+    fun bindsProfileRepository(
+        profileRepositoryImpl: ProfileRepositoryImpl
+    ): ProfileRepository
 }

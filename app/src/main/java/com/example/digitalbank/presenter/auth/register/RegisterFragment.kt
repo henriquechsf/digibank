@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.FragmentRegisterBinding
+import com.example.digitalbank.presenter.profile.ProfileViewModel
+import com.example.digitalbank.utils.FirebaseHelper
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
@@ -24,6 +26,7 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val registerViewModel: RegisterViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +59,12 @@ class RegisterFragment : Fragment() {
 
         if (name.isNotEmpty() || email.isNotEmpty() || phone.isNotEmpty() || password.isNotEmpty() || confirmPassword.isNotEmpty()) {
             if (password == confirmPassword) {
-                val user = User(name, email, phone, password)
+                val user = User(
+                    name = name,
+                    email = email,
+                    phone = phone,
+                    password = password
+                )
                 registerUser(user)
             } else {
                 showBottomSheet(message = "Senhas nao conferem")
@@ -72,6 +80,28 @@ class RegisterFragment : Fragment() {
                 is StateView.Loading -> {
                     binding.progressBar.isVisible = true
                 }
+                is StateView.Sucess -> {
+                    saveProfile(user.copy(id = FirebaseHelper.getUserId()))
+
+                    findNavController().navigate(R.id.action_authentication_homeFragment)
+                }
+                is StateView.Error -> {
+                    binding.progressBar.isVisible = false
+
+                    Toast.makeText(
+                        requireContext(),
+                        stateView.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun saveProfile(user: User) {
+        profileViewModel.saveProfile(user).observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Loading -> {}
                 is StateView.Sucess -> {
                     binding.progressBar.isVisible = false
 

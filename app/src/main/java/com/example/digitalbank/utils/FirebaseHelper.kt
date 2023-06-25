@@ -9,6 +9,8 @@ class FirebaseHelper {
     companion object {
         fun isAuthenticated(): Boolean = FirebaseAuth.getInstance().currentUser != null
 
+        fun getUserId() = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
         // TODO: Adicionar demais mapeamentos de erro Firebase
         fun validError(error: String): Int {
             return when {
