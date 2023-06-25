@@ -11,8 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
+import com.example.digitalbank.data.model.Wallet
 import com.example.digitalbank.databinding.FragmentRegisterBinding
 import com.example.digitalbank.presenter.profile.ProfileViewModel
+import com.example.digitalbank.presenter.wallet.WalletViewModel
 import com.example.digitalbank.utils.FirebaseHelper
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
@@ -27,6 +29,7 @@ class RegisterFragment : Fragment() {
 
     private val registerViewModel: RegisterViewModel by viewModels()
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val walletViewModel: WalletViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,8 +85,6 @@ class RegisterFragment : Fragment() {
                 }
                 is StateView.Sucess -> {
                     saveProfile(user.copy(id = FirebaseHelper.getUserId()))
-
-                    findNavController().navigate(R.id.action_authentication_homeFragment)
                 }
                 is StateView.Error -> {
                     binding.progressBar.isVisible = false
@@ -100,6 +101,28 @@ class RegisterFragment : Fragment() {
 
     private fun saveProfile(user: User) {
         profileViewModel.saveProfile(user).observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Loading -> {}
+                is StateView.Sucess -> {
+                    initWallet()
+                }
+                is StateView.Error -> {
+                    binding.progressBar.isVisible = false
+
+                    Toast.makeText(
+                        requireContext(),
+                        stateView.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun initWallet() {
+        val wallet = Wallet(userId = FirebaseHelper.getUserId())
+
+        walletViewModel.initWallet(wallet).observe(viewLifecycleOwner) { stateView ->
             when (stateView) {
                 is StateView.Loading -> {}
                 is StateView.Sucess -> {

@@ -4,6 +4,8 @@ import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSource
 import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSourceImpl
 import com.example.digitalbank.data.repository.profile.ProfileRepository
 import com.example.digitalbank.data.repository.profile.ProfileRepositoryImpl
+import com.example.digitalbank.data.repository.wallet.WalletRepository
+import com.example.digitalbank.data.repository.wallet.WalletRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,4 +24,9 @@ interface DomainModule {
     fun bindsProfileRepository(
         profileRepositoryImpl: ProfileRepositoryImpl
     ): ProfileRepository
+
+    @Binds
+    fun bindsWalletRepository(
+        walletRepositoryImpl: WalletRepositoryImpl
+    ): WalletRepository
 }
