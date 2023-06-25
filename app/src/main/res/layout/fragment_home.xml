@@ -88,6 +88,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
+            tools:listitem="@layout/last_transaction_item"
             android:layout_height="match_parent" />
 
     </androidx.cardview.widget.CardView>
