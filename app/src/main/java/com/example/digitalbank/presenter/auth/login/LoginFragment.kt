@@ -35,7 +35,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-        showBottomSheet(message = "Teste")
     }
 
     private fun initListeners() = with(binding) {
@@ -60,7 +59,7 @@ class LoginFragment : Fragment() {
         if (email.isNotEmpty() || password.isNotEmpty()) {
             loginUser(email, password)
         } else {
-            Toast.makeText(requireContext(), "Digite todos os campos", Toast.LENGTH_SHORT).show()
+            showBottomSheet(message = "Digite todos os campos")
         }
     }
 

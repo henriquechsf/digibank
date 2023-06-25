@@ -13,6 +13,7 @@ import com.example.digitalbank.R
 import com.example.digitalbank.databinding.FragmentForgotAccountBinding
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
+import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,7 +52,7 @@ class ForgotAccountFragment : Fragment() {
         if (email.isNotEmpty()) {
             forgotAccount(email)
         } else {
-            Toast.makeText(requireContext(), "Digite todos os campos", Toast.LENGTH_SHORT).show()
+            showBottomSheet(message = "Digite todos os campos")
         }
     }
 

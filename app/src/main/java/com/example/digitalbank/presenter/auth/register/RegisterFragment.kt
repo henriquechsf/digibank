@@ -8,10 +8,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.FragmentRegisterBinding
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
+import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,10 +59,10 @@ class RegisterFragment : Fragment() {
                 val user = User(name, email, phone, password)
                 registerUser(user)
             } else {
-                Toast.makeText(requireContext(), "Senhas nao conferem", Toast.LENGTH_SHORT).show()
+                showBottomSheet(message = "Senhas nao conferem")
             }
         } else {
-            Toast.makeText(requireContext(), "Digite todos os campos", Toast.LENGTH_SHORT).show()
+            showBottomSheet(message = getString(R.string.text_name_empty))
         }
     }
 
@@ -72,11 +75,7 @@ class RegisterFragment : Fragment() {
                 is StateView.Sucess -> {
                     binding.progressBar.isVisible = false
 
-                    Toast.makeText(
-                        requireContext(),
-                        "Usuario registrado com sucesso.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    findNavController().navigate(R.id.action_authentication_homeFragment)
                 }
                 is StateView.Error -> {
                     binding.progressBar.isVisible = false
