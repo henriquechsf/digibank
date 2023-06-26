@@ -109,6 +109,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/btn_deposit"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginVertical="@dimen/padding_medium"

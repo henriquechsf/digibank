@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.R
 import com.example.digitalbank.data.model.Wallet
 import com.example.digitalbank.databinding.FragmentHomeBinding
@@ -34,6 +35,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getWallet()
+        initListeners()
+    }
+
+    private fun initListeners() = with(binding) {
+        btnDeposit.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_depositFormFragment)
+        }
     }
 
     private fun getWallet() {
