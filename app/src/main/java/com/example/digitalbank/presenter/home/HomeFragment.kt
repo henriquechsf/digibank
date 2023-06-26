@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.R
-import com.example.digitalbank.data.model.Wallet
+import com.example.digitalbank.data.enum.TransactionType
+import com.example.digitalbank.data.model.Transaction
 import com.example.digitalbank.databinding.FragmentHomeBinding
 import com.example.digitalbank.utils.GetMask
 import com.example.digitalbank.utils.StateView
@@ -34,7 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getWallet()
+        getTransactions()
         initListeners()
     }
 
@@ -44,16 +45,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getWallet() {
-        homeViewModel.getWallet().observe(viewLifecycleOwner) { stateView ->
+    private fun getTransactions() {
+        homeViewModel.getTransactions().observe(viewLifecycleOwner) { stateView ->
             when (stateView) {
                 is StateView.Loading -> {
 
                 }
                 is StateView.Sucess -> {
-                    stateView.data?.let {
-                        showBalance(it.balance)
-                    }
+                    showBalance(stateView.data ?: emptyList())
                 }
                 is StateView.Error -> {
                     showBottomSheet(message = stateView.message)
@@ -62,9 +61,20 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showBalance(balance: Float) {
+    private fun showBalance(transactions: List<Transaction>) {
+        var cashIn = 0F
+        var cashOut = 0F
+
+        transactions.forEach { transaction ->
+            if (transaction.type == TransactionType.CASH_IN) {
+                cashIn += transaction.amount
+            } else {
+                cashOut += transaction.amount
+            }
+        }
+
         binding.tvBalance.text =
-            getString(R.string.text_formatted_value, GetMask.getFormatedValue(balance))
+            getString(R.string.text_formatted_value, GetMask.getFormatedValue(cashIn - cashOut))
     }
 
     override fun onDestroyView() {
