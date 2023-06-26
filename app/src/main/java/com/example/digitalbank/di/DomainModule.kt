@@ -2,6 +2,8 @@ package com.example.digitalbank.di
 
 import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSource
 import com.example.digitalbank.data.repository.auth.AuthFirebaseDataSourceImpl
+import com.example.digitalbank.data.repository.deposit.DepositRepository
+import com.example.digitalbank.data.repository.deposit.DepositRepositoryImpl
 import com.example.digitalbank.data.repository.profile.ProfileRepository
 import com.example.digitalbank.data.repository.profile.ProfileRepositoryImpl
 import com.example.digitalbank.data.repository.wallet.WalletRepository
@@ -29,4 +31,9 @@ interface DomainModule {
     fun bindsWalletRepository(
         walletRepositoryImpl: WalletRepositoryImpl
     ): WalletRepository
+
+    @Binds
+    fun bindsDepositRepository(
+        depositRepositoryImpl: DepositRepositoryImpl
+    ): DepositRepository
 }
