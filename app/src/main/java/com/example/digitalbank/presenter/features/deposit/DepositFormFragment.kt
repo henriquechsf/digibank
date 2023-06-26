@@ -14,6 +14,8 @@ import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @AndroidEntryPoint
 class DepositFormFragment : Fragment() {
@@ -48,7 +50,9 @@ class DepositFormFragment : Fragment() {
         val depositAmount = binding.edtDepositAmount.text.toString().trim()
 
         if (depositAmount.isNotEmpty()) {
-            val deposit = Deposit(amount = depositAmount.toFloat())
+            val deposit = Deposit(
+                amount = depositAmount.toFloat(), date = System.currentTimeMillis()
+            )
             saveDeposit(deposit)
         } else {
             showBottomSheet(message = "Digite um valor para deposito")

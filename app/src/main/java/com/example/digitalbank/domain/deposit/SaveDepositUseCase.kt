@@ -8,7 +8,7 @@ class SaveDepositUseCase @Inject constructor(
     private val depositRepository: DepositRepository
 ) {
 
-    suspend operator fun invoke(deposit: Deposit): String {
+    suspend operator fun invoke(deposit: Deposit): Deposit {
         return depositRepository.saveDeposit(deposit)
     }
 }
