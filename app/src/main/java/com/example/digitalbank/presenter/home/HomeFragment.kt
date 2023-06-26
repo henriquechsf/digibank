@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.digitalbank.R
 import com.example.digitalbank.data.enum.TransactionType
 import com.example.digitalbank.data.model.Transaction
@@ -24,6 +26,8 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
+    private lateinit var adapterTransactions: TransactionsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +39,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerTransactions()
         getTransactions()
         initListeners()
     }
@@ -45,16 +50,29 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun initRecyclerTransactions() {
+        adapterTransactions = TransactionsAdapter(requireContext()) { selectedTransaction -> }
+
+        with(binding.rvTransactions) {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter= adapterTransactions
+        }
+    }
+
     private fun getTransactions() {
         homeViewModel.getTransactions().observe(viewLifecycleOwner) { stateView ->
             when (stateView) {
                 is StateView.Loading -> {
-
+                    binding.progressBar.isVisible = true
                 }
                 is StateView.Sucess -> {
+                    binding.progressBar.isVisible = false
+                    adapterTransactions.submitList(stateView.data?.reversed())
                     showBalance(stateView.data ?: emptyList())
                 }
                 is StateView.Error -> {
+                    binding.progressBar.isVisible = false
                     showBottomSheet(message = stateView.message)
                 }
             }

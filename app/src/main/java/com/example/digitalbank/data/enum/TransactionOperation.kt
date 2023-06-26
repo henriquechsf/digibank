@@ -1,5 +1,12 @@
 package com.example.digitalbank.data.enum
 
-enum class TransactionOperation(val description: String, val character: Char) {
-    DEPOSIT("Deposito", 'D')
+import androidx.annotation.ColorRes
+import com.example.digitalbank.R
+
+enum class TransactionOperation(
+    val description: String,
+    val character: Char,
+    @ColorRes val color: Int
+) {
+    DEPOSIT("Deposito", 'D', R.color.green_500)
 }
