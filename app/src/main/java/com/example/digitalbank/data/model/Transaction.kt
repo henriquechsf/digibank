@@ -1,14 +1,12 @@
 package com.example.digitalbank.data.model
 
-import com.google.firebase.database.FirebaseDatabase
+import com.example.digitalbank.data.enum.TransactionOperation
+import com.example.digitalbank.data.enum.TransactionType
 
 data class Transaction(
     var id: String = "",
-    val description: String = "",
-    val date: Long = 0,
-    val value: Float = 0F
-) {
-    init {
-        this.id = FirebaseDatabase.getInstance().reference.push().key ?: ""
-    }
-}
+    var operation: TransactionOperation? = null,
+    var date: Long = 0,
+    var amount: Float = 0F,
+    var type: TransactionType? = null
+)

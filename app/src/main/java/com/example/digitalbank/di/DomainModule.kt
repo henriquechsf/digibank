@@ -6,6 +6,8 @@ import com.example.digitalbank.data.repository.deposit.DepositRepository
 import com.example.digitalbank.data.repository.deposit.DepositRepositoryImpl
 import com.example.digitalbank.data.repository.profile.ProfileRepository
 import com.example.digitalbank.data.repository.profile.ProfileRepositoryImpl
+import com.example.digitalbank.data.repository.transaction.TransactionRepository
+import com.example.digitalbank.data.repository.transaction.TransactionRepositoryImpl
 import com.example.digitalbank.data.repository.wallet.WalletRepository
 import com.example.digitalbank.data.repository.wallet.WalletRepositoryImpl
 import dagger.Binds
@@ -36,4 +38,9 @@ interface DomainModule {
     fun bindsDepositRepository(
         depositRepositoryImpl: DepositRepositoryImpl
     ): DepositRepository
+
+    @Binds
+    fun bindsTransactionRepository(
+        transactionRepositoryImpl: TransactionRepositoryImpl
+    ): TransactionRepository
 }
