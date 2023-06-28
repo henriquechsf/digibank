@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.digitalbank.data.enum.TransactionOperation
 import com.example.digitalbank.data.enum.TransactionType
 import com.example.digitalbank.data.model.Deposit
@@ -92,7 +93,9 @@ class DepositFormFragment : Fragment() {
                 is StateView.Loading -> {
                 }
                 is StateView.Sucess -> {
-                    Toast.makeText(requireContext(), "SUCESSO", Toast.LENGTH_SHORT).show()
+                    val action = DepositFormFragmentDirections
+                        .actionDepositFormFragmentToDepositReceiptFragment(transaction)
+                    findNavController().navigate(action)
                 }
                 is StateView.Error -> {
                     binding.progressBar.isVisible = false

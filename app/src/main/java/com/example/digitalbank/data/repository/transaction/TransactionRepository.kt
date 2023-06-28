@@ -4,7 +4,7 @@ import com.example.digitalbank.data.model.Transaction
 
 interface TransactionRepository {
 
-    suspend fun saveTransaction(transaction: Transaction)
+    suspend fun saveTransaction(transaction: Transaction): Transaction
 
     suspend fun getTransactions(): List<Transaction>
 }

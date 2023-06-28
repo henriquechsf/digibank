@@ -17,13 +17,13 @@ class TransactionRepositoryImpl @Inject constructor(
         .child("transaction")
         .child(FirebaseHelper.getUserId())
 
-    override suspend fun saveTransaction(transaction: Transaction) {
+    override suspend fun saveTransaction(transaction: Transaction): Transaction {
         return suspendCoroutine { continuation ->
             transactionRef
                 .child(transaction.id)
                 .setValue(transaction).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        continuation.resumeWith(Result.success(Unit))
+                        continuation.resumeWith(Result.success(transaction))
                     } else {
                         task.exception?.let {
                             continuation.resumeWith(Result.failure(it))

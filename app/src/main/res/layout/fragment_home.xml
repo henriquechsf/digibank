@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_balance" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/btn_show_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
@@ -182,6 +182,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/btn_history"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginVertical="@dimen/padding_medium"

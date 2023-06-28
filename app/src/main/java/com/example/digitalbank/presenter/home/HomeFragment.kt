@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.digitalbank.R
+import com.example.digitalbank.data.enum.TransactionOperation
 import com.example.digitalbank.data.enum.TransactionType
 import com.example.digitalbank.data.model.Transaction
 import com.example.digitalbank.databinding.FragmentHomeBinding
@@ -48,15 +49,31 @@ class HomeFragment : Fragment() {
         btnDeposit.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_depositFormFragment)
         }
+        btnShowAll.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_extractFragment)
+        }
+        btnHistory.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_extractFragment)
+        }
     }
 
     private fun initRecyclerTransactions() {
-        adapterTransactions = TransactionsAdapter(requireContext()) { selectedTransaction -> }
+        adapterTransactions = TransactionsAdapter(requireContext()) { selectedTransaction ->
+            when (selectedTransaction.operation) {
+                TransactionOperation.DEPOSIT -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToDepositReceiptFragment(
+                        selectedTransaction
+                    )
+                    findNavController().navigate(action)
+                }
+                else -> {}
+            }
+        }
 
         with(binding.rvTransactions) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
-            adapter= adapterTransactions
+            adapter = adapterTransactions
         }
     }
 
@@ -68,7 +85,7 @@ class HomeFragment : Fragment() {
                 }
                 is StateView.Sucess -> {
                     binding.progressBar.isVisible = false
-                    adapterTransactions.submitList(stateView.data?.reversed())
+                    adapterTransactions.submitList(stateView.data?.reversed()?.take(6))
                     showBalance(stateView.data ?: emptyList())
                 }
                 is StateView.Error -> {

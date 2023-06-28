@@ -58,7 +58,10 @@ class TransactionsAdapter(
                     transaction.operation?.color ?: R.color.blue_500
                 )
             )
-        holder.binding.tvTransactionValue.text = GetMask.getFormatedValue(transaction.amount)
+        holder.binding.tvTransactionValue.text = context.getString(
+            R.string.text_formatted_value,
+            GetMask.getFormatedValue(transaction.amount)
+        )
         holder.binding.tvTransactionDate.text =
             GetMask.getFormatedDate(transaction.date, GetMask.DAY_MONTH_YEAR_HOUR_MINUTE)
 
