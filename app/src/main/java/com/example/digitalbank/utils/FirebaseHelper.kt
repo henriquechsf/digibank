@@ -11,6 +11,8 @@ class FirebaseHelper {
 
         fun getUserId() = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
+        fun getAuth() = FirebaseAuth.getInstance()
+
         // TODO: Adicionar demais mapeamentos de erro Firebase
         fun validError(error: String): Int {
             return when {

@@ -14,6 +14,7 @@ import com.example.digitalbank.data.enum.TransactionOperation
 import com.example.digitalbank.data.enum.TransactionType
 import com.example.digitalbank.data.model.Transaction
 import com.example.digitalbank.databinding.FragmentHomeBinding
+import com.example.digitalbank.utils.FirebaseHelper
 import com.example.digitalbank.utils.GetMask
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.showBottomSheet
@@ -54,6 +55,14 @@ class HomeFragment : Fragment() {
         }
         btnHistory.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_extractFragment)
+        }
+        btnLogout.setOnClickListener {
+            FirebaseHelper.getAuth().signOut()
+            findNavController().navigate(R.id.action_homeFragment_to_authentication)
+        }
+        btnCardLogout.setOnClickListener {
+            FirebaseHelper.getAuth().signOut()
+            findNavController().navigate(R.id.action_homeFragment_to_authentication)
         }
     }
 
