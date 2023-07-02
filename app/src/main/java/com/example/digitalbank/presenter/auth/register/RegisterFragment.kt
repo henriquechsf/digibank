@@ -17,6 +17,7 @@ import com.example.digitalbank.presenter.profile.ProfileViewModel
 import com.example.digitalbank.presenter.wallet.WalletViewModel
 import com.example.digitalbank.utils.FirebaseHelper
 import com.example.digitalbank.utils.StateView
+import com.example.digitalbank.utils.hideKeyboard
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,6 +63,8 @@ class RegisterFragment : Fragment() {
 
         if (name.isNotEmpty() || email.isNotEmpty() || phone.isNotEmpty() || password.isNotEmpty() || confirmPassword.isNotEmpty()) {
             if (password == confirmPassword) {
+                hideKeyboard()
+
                 val user = User(
                     name = name,
                     email = email,

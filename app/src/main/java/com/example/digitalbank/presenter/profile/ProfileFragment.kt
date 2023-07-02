@@ -12,6 +12,7 @@ import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.FragmentProfileBinding
 import com.example.digitalbank.utils.StateView
+import com.example.digitalbank.utils.hideKeyboard
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,8 @@ class ProfileFragment : Fragment() {
         val phone = edtPhone.text.toString().trim()
 
         if (name.isNotEmpty() || email.isNotEmpty() || phone.isNotEmpty()) {
+            hideKeyboard()
+
             val user = User(
                 name = name,
                 email = email,

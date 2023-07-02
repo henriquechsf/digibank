@@ -1,5 +1,7 @@
 package com.example.digitalbank.utils
 
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -37,4 +39,12 @@ fun Fragment.showBottomSheet(
 
     bottomSheetDialog.setContentView(bottomSheetBinding.root)
     bottomSheetDialog.show()
+}
+
+fun Fragment.hideKeyboard() {
+    val view = activity?.currentFocus
+    if (view != null) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }
