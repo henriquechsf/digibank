@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.features.deposit.DepositFormFragment">
+    tools:context=".presenter.features.recharge.RechargeFormFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="Depositar" />
+                        android:text="Recarga" />
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
-                android:text="Informe o valor a ser depositado"
+                android:text="Informe o valor da recarga"
                 android:textColor="@color/blue_500" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
-                android:text="Valor do depositado"
+                android:text="Valor da recarga"
                 android:textColor="@color/blue_500"
                 android:textSize="20sp" />
 
@@ -67,7 +67,27 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/blue_500"
+                android:hint="Digite o valor da recarga"
                 android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:text="Insira o número"
+                android:textColor="@color/blue_500"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edt_recharge_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/blue_500"
+                android:hint="Digite o número do telefone"
+                android:inputType="number" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
