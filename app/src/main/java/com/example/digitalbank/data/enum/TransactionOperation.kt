@@ -8,5 +8,6 @@ enum class TransactionOperation(
     val character: Char,
     @ColorRes val color: Int
 ) {
-    DEPOSIT("Deposito", 'D', R.color.green_500)
+    DEPOSIT("Deposito", 'D', R.color.green_500),
+    RECHARGE("Recarga de celular", 'R', R.color.red_500),
 }

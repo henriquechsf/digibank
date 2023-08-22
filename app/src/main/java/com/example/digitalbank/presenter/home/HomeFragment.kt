@@ -67,6 +67,9 @@ class HomeFragment : Fragment() {
             FirebaseHelper.getAuth().signOut()
             findNavController().navigate(R.id.action_homeFragment_to_authentication)
         }
+        btnCardRecharge.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_rechargeFormFragment)
+        }
     }
 
     private fun initRecyclerTransactions() {
@@ -75,6 +78,12 @@ class HomeFragment : Fragment() {
                 TransactionOperation.DEPOSIT -> {
                     val action = HomeFragmentDirections.actionHomeFragmentToDepositReceiptFragment(
                         selectedTransaction
+                    )
+                    findNavController().navigate(action)
+                }
+                TransactionOperation.RECHARGE -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToRechargeReceiptFragment(
+                        selectedTransaction.id
                     )
                     findNavController().navigate(action)
                 }

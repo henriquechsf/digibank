@@ -6,6 +6,8 @@ import com.example.digitalbank.data.repository.deposit.DepositRepository
 import com.example.digitalbank.data.repository.deposit.DepositRepositoryImpl
 import com.example.digitalbank.data.repository.profile.ProfileRepository
 import com.example.digitalbank.data.repository.profile.ProfileRepositoryImpl
+import com.example.digitalbank.data.repository.recharge.RechargeRepository
+import com.example.digitalbank.data.repository.recharge.RechargeRepositoryImpl
 import com.example.digitalbank.data.repository.transaction.TransactionRepository
 import com.example.digitalbank.data.repository.transaction.TransactionRepositoryImpl
 import com.example.digitalbank.data.repository.wallet.WalletRepository
@@ -43,4 +45,9 @@ interface DomainModule {
     fun bindsTransactionRepository(
         transactionRepositoryImpl: TransactionRepositoryImpl
     ): TransactionRepository
+
+    @Binds
+    fun bindsRechargeRepository(
+        rechargeRepositoryImpl: RechargeRepositoryImpl
+    ): RechargeRepository
 }
