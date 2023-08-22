@@ -27,6 +27,10 @@
     <string name="forgot_password">Forgot password</string>
     <string name="btn_login">Login</string>
 
+    <!-- Profile screen -->
+    <string name="text_message_camera_denied_profile_fragment">Para que você capture imagens utilizando a câmera precisamos desta permissão. Acesse as configurações e habilite esta opção.</string>
+    <string name="text_message_gallery_denied_profile_fragment">Para que você carregue imagens utilizando a galeria precisamos desta permissão. Acesse as configurações e habilite esta opção.</string>
+
     <!-- forgot password screen -->
     <string name="btn_send_email">Send email</string>
     <string name="forgot_password_message">Input your email to receive a link to forgot your password.</string>

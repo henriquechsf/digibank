@@ -1,5 +1,6 @@
 package com.example.digitalbank.presenter.profile
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,10 @@ import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.hideKeyboard
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -125,6 +129,57 @@ class ProfileFragment : Fragment() {
         binding.edtName.setText(user?.name)
         binding.edtPhone.setText(user?.phone)
         binding.edtEmail.setText(user?.email)
+    }
+
+    private fun checkPermissionCamera() {
+        val permissionlistener: PermissionListener = object : PermissionListener {
+            override fun onPermissionGranted() {
+                Toast.makeText(requireContext(), "Permissao Aceita", Toast.LENGTH_SHORT).show()
+                // Open camera
+            }
+
+            override fun onPermissionDenied(deniedPermissions: List<String>) {
+                Toast.makeText(requireContext(), "Permissao Negada", Toast.LENGTH_SHORT).show()
+            }
+        }
+        showDialogPermissionDenied(
+            permissionlistener = permissionlistener,
+            permission = Manifest.permission.CAMERA,
+            message = R.string.text_message_gallery_denied_profile_fragment
+        )
+    }
+
+    private fun checkPermissionGallery() {
+        val permissionlistener: PermissionListener = object : PermissionListener {
+            override fun onPermissionGranted() {
+                Toast.makeText(requireContext(), "Permissao Aceita", Toast.LENGTH_SHORT).show()
+                // Open camera
+            }
+
+            override fun onPermissionDenied(deniedPermissions: List<String>) {
+                Toast.makeText(requireContext(), "Permissao Negada", Toast.LENGTH_SHORT).show()
+            }
+        }
+        showDialogPermissionDenied(
+            permissionlistener = permissionlistener,
+            permission = Manifest.permission.READ_EXTERNAL_STORAGE,
+            message = R.string.text_message_gallery_denied_profile_fragment
+        )
+    }
+
+    private fun showDialogPermissionDenied(
+        permissionlistener: PermissionListener,
+        permission: String,
+        message: Int
+    ) {
+        TedPermission.create()
+            .setPermissionListener(permissionlistener)
+            .setDeniedTitle("Permissao negada")
+            .setDeniedMessage(message)
+            .setDeniedCloseButtonText("Nao")
+            .setGotoSettingButtonText("Sim")
+            .setPermissions(permission)
+            .check();
     }
 
     override fun onDestroyView() {
