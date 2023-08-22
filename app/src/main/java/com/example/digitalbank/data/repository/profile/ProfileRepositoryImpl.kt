@@ -38,18 +38,18 @@ class ProfileRepositoryImpl @Inject constructor(
             profileRef
                 .child(FirebaseHelper.getUserId())
                 .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val user = snapshot.getValue(User::class.java)
-                    user?.let {
-                        continuation.resumeWith(Result.success(it))
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val user = snapshot.getValue(User::class.java)
+                        user?.let {
+                            continuation.resumeWith(Result.success(it))
+                        }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    continuation.resumeWith(Result.failure(error.toException()))
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        continuation.resumeWith(Result.failure(error.toException()))
+                    }
 
-            })
+                })
         }
     }
 
@@ -64,7 +64,13 @@ class ProfileRepositoryImpl @Inject constructor(
                         user?.let { userList.add(it) }
                     }
 
-                    continuation.resumeWith(Result.success(userList))
+                    continuation.resumeWith(
+                        Result.success(
+                            userList.apply {
+                                removeAll { it.id == FirebaseHelper.getUserId() }
+                            }
+                        )
+                    )
                 }
 
                 override fun onCancelled(error: DatabaseError) {

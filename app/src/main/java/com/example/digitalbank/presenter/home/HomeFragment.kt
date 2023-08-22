@@ -59,6 +59,9 @@ class HomeFragment : Fragment() {
         btnProfile.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
+        btnTransfer.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_transferUserListFragment)
+        }
         btnLogout.setOnClickListener {
             FirebaseHelper.getAuth().signOut()
             findNavController().navigate(R.id.action_homeFragment_to_authentication)

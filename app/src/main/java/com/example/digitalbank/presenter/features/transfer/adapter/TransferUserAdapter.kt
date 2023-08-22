@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.TransferUserItemBinding
 
@@ -46,8 +47,10 @@ class TransferUserAdapter(
 
         with(holder.binding) {
             tvUsername.text = user.name
+            val userImage = user.image.ifEmpty { R.drawable.ic_image_profile }
+
             Glide.with(root.context)
-                .load(user.image)
+                .load(userImage)
                 .into(imgUser)
         }
 
