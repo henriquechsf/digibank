@@ -15,30 +15,56 @@ class ProfileRepositoryImpl @Inject constructor(
 
     private val profileRef = database.reference
         .child("profile")
-        .child(FirebaseHelper.getUserId())
 
     override suspend fun saveProfile(user: User) {
         return suspendCoroutine { continuation ->
-            profileRef.setValue(user).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    continuation.resumeWith(Result.success(Unit))
-                } else {
-                    task.exception?.let {
-                        continuation.resumeWith(Result.failure(it))
+            profileRef
+                .child(FirebaseHelper.getUserId())
+                .setValue(user)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resumeWith(Result.success(Unit))
+                    } else {
+                        task.exception?.let {
+                            continuation.resumeWith(Result.failure(it))
+                        }
                     }
                 }
-            }
         }
     }
 
     override suspend fun getProfile(): User {
         return suspendCoroutine { continuation ->
-            profileRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            profileRef
+                .child(FirebaseHelper.getUserId())
+                .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(User::class.java)
                     user?.let {
                         continuation.resumeWith(Result.success(it))
                     }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    continuation.resumeWith(Result.failure(error.toException()))
+                }
+
+            })
+        }
+    }
+
+    override suspend fun getProfileList(): List<User> {
+        return suspendCoroutine { continuation ->
+            profileRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userList = mutableListOf<User>()
+
+                    snapshot.children.forEach { dataSnapshot ->
+                        val user = dataSnapshot.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    continuation.resumeWith(Result.success(userList))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
