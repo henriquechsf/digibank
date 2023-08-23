@@ -76,6 +76,25 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun saveImageProfile() {
+        imageProfile?.let {
+            profileViewModel.saveImageProfile(it).observe(viewLifecycleOwner) { stateView ->
+                when (stateView) {
+                    is StateView.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    is StateView.Sucess -> {
+
+                    }
+                    is StateView.Error -> {
+                        binding.progressBar.isVisible = false
+                        showBottomSheet(message = stateView.message)
+                    }
+                }
+            }
+        }
+    }
+
     private fun showBottomSheetPickImage() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialog)
         val bottomSheetBinding: BottomSheetImageBinding =

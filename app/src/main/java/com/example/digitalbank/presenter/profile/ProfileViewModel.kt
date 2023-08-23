@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.digitalbank.data.model.User
 import com.example.digitalbank.domain.profile.GetProfileUseCase
+import com.example.digitalbank.domain.profile.SaveImageProfileUseCase
 import com.example.digitalbank.domain.profile.SaveProfileUseCase
 import com.example.digitalbank.utils.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val saveProfileUseCase: SaveProfileUseCase,
+    private val saveImageProfileUseCase: SaveImageProfileUseCase,
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
@@ -23,6 +25,18 @@ class ProfileViewModel @Inject constructor(
             saveProfileUseCase(user)
 
             emit(StateView.Sucess(null))
+        } catch (e: Exception) {
+            emit(StateView.Error(e.message))
+        }
+    }
+
+    fun saveImageProfile(image: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(StateView.Loading())
+
+            val urlImageProfile = saveImageProfileUseCase(image)
+
+            emit(StateView.Sucess(urlImageProfile))
         } catch (e: Exception) {
             emit(StateView.Error(e.message))
         }
