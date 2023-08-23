@@ -16,7 +16,6 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Perfil" />
+                    android:text="Perfil"
+                    android:textColor="@color/white" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,11 +48,13 @@
                 app:cardCornerRadius="50dp">
 
                 <ImageView
+                    android:id="@+id/img_user"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/guilherme" />
+                    android:src="@drawable/guilherme"
+                    tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
 
@@ -103,8 +105,8 @@
                     android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:background="@android:color/transparent"
+                    android:enabled="false"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,11 +1,20 @@
 package com.example.digitalbank.presenter.profile
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +40,9 @@ class ProfileFragment : Fragment() {
 
     private var user: User? = null
 
+    private var imageProfile: String? = null
+    private var currentPhotoPath: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +57,8 @@ class ProfileFragment : Fragment() {
 
         getProfile()
         initListeners()
+
+        checkPermissionCamera()
     }
 
     private fun initListeners() {
@@ -145,10 +159,11 @@ class ProfileFragment : Fragment() {
         showDialogPermissionDenied(
             permissionlistener = permissionlistener,
             permission = Manifest.permission.CAMERA,
-            message = R.string.text_message_gallery_denied_profile_fragment
+            message = R.string.text_message_camera_denied_profile_fragment
         )
     }
 
+    /*
     private fun checkPermissionGallery() {
         val permissionlistener: PermissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
@@ -167,6 +182,8 @@ class ProfileFragment : Fragment() {
         )
     }
 
+     */
+
     private fun showDialogPermissionDenied(
         permissionlistener: PermissionListener,
         permission: String,
@@ -180,6 +197,41 @@ class ProfileFragment : Fragment() {
             .setGotoSettingButtonText("Sim")
             .setPermissions(permission)
             .check();
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        galleryLauncher.launch(intent)
+    }
+
+    private val galleryLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+
+            val imageSelected = result.data!!.data
+            imageProfile = imageSelected.toString()
+
+            if (imageSelected != null) {
+                binding.imgUser.setImageBitmap(getBitmap(imageSelected))
+            }
+        }
+    }
+
+    private fun getBitmap(pathUri: Uri): Bitmap? {
+        var bitmap: Bitmap? = null
+        try {
+            bitmap = if (Build.VERSION.SDK_INT < 28) {
+                MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, pathUri)
+            } else {
+                val source =
+                    ImageDecoder.createSource(requireActivity().contentResolver, pathUri)
+                ImageDecoder.decodeBitmap(source)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return bitmap
     }
 
     override fun onDestroyView() {
