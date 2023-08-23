@@ -22,11 +22,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.digitalbank.R
 import com.example.digitalbank.data.model.User
+import com.example.digitalbank.databinding.BottomSheetImageBinding
 import com.example.digitalbank.databinding.FragmentProfileBinding
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.hideKeyboard
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,16 +65,33 @@ class ProfileFragment : Fragment() {
 
         getProfile()
         initListeners()
-
-        checkPermissionCamera()
     }
 
     private fun initListeners() {
+        binding.imgUser.setOnClickListener { showBottomSheetPickImage() }
         binding.btnSave.setOnClickListener {
             if (user != null) {
                 validateData()
             }
         }
+    }
+
+    private fun showBottomSheetPickImage() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialog)
+        val bottomSheetBinding: BottomSheetImageBinding =
+            BottomSheetImageBinding.inflate(layoutInflater, null, false)
+
+        bottomSheetBinding.btnCamera.setOnClickListener {
+            checkPermissionCamera()
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetBinding.btnGallery.setOnClickListener {
+            openGallery()
+            bottomSheetDialog.dismiss()
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
     }
 
     private fun getProfile() {
@@ -154,8 +173,6 @@ class ProfileFragment : Fragment() {
     private fun checkPermissionCamera() {
         val permissionlistener: PermissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
-                Toast.makeText(requireContext(), "Permissao Aceita", Toast.LENGTH_SHORT).show()
-                // Open camera
                 openCamera()
             }
 
@@ -169,27 +186,6 @@ class ProfileFragment : Fragment() {
             message = R.string.text_message_camera_denied_profile_fragment
         )
     }
-
-    /*
-    private fun checkPermissionGallery() {
-        val permissionlistener: PermissionListener = object : PermissionListener {
-            override fun onPermissionGranted() {
-                Toast.makeText(requireContext(), "Permissao Aceita", Toast.LENGTH_SHORT).show()
-                // Open camera
-            }
-
-            override fun onPermissionDenied(deniedPermissions: List<String>) {
-                Toast.makeText(requireContext(), "Permissao Negada", Toast.LENGTH_SHORT).show()
-            }
-        }
-        showDialogPermissionDenied(
-            permissionlistener = permissionlistener,
-            permission = Manifest.permission.READ_EXTERNAL_STORAGE,
-            message = R.string.text_message_gallery_denied_profile_fragment
-        )
-    }
-
-     */
 
     private fun showDialogPermissionDenied(
         permissionlistener: PermissionListener,
@@ -248,7 +244,11 @@ class ProfileFragment : Fragment() {
         try {
             photoFile = createImageFile()
         } catch (ex: IOException) {
-            Toast.makeText(requireContext(), "Não foi possível abrir a câmera do dispositivo", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Não foi possível abrir a câmera do dispositivo",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         if (photoFile != null) {
