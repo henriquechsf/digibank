@@ -9,4 +9,6 @@ interface ProfileRepository {
     suspend fun getProfile(): User
 
     suspend fun getProfileList(): List<User>
+
+    suspend fun saveImageProfile(image: String): String
 }
