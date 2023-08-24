@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,10 +14,12 @@ import com.example.digitalbank.R
 import com.example.digitalbank.data.enum.TransactionOperation
 import com.example.digitalbank.data.enum.TransactionType
 import com.example.digitalbank.data.model.Transaction
+import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.FragmentHomeBinding
 import com.example.digitalbank.utils.FirebaseHelper
 import com.example.digitalbank.utils.GetMask
 import com.example.digitalbank.utils.StateView
+import com.example.digitalbank.utils.loadImage
 import com.example.digitalbank.utils.showBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +44,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getProfile()
         initRecyclerTransactions()
         getTransactions()
         initListeners()
@@ -134,6 +138,37 @@ class HomeFragment : Fragment() {
 
         binding.tvBalance.text =
             getString(R.string.text_formatted_value, GetMask.getFormatedValue(cashIn - cashOut))
+    }
+
+    private fun getProfile() {
+        homeViewModel.getProfile().observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is StateView.Sucess -> {
+                    binding.progressBar.isVisible = false
+                    stateView.data?.let { configData(it) }
+                }
+                is StateView.Error -> {
+                    binding.progressBar.isVisible = false
+
+                    Toast.makeText(
+                        requireContext(),
+                        stateView.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun configData(user: User) {
+        if (user.image.isNotEmpty()) {
+            loadImage(binding.imgUser, user.image)
+        } else {
+            binding.imgUser.setImageResource(R.drawable.ic_image_profile)
+        }
     }
 
     override fun onDestroyView() {
