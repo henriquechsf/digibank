@@ -54,8 +54,8 @@
                     android:layout_height="100dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_camera"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/guilherme" />
 
             </androidx.cardview.widget.CardView>
 

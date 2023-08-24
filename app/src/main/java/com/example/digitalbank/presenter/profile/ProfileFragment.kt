@@ -27,6 +27,7 @@ import com.example.digitalbank.databinding.FragmentProfileBinding
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.hideKeyboard
 import com.example.digitalbank.utils.initToolbar
+import com.example.digitalbank.utils.loadImage
 import com.example.digitalbank.utils.showBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.gun0912.tedpermission.PermissionListener
@@ -71,25 +72,10 @@ class ProfileFragment : Fragment() {
         binding.imgUser.setOnClickListener { showBottomSheetPickImage() }
         binding.btnSave.setOnClickListener {
             if (user != null) {
-                validateData()
-            }
-        }
-    }
-
-    private fun saveImageProfile() {
-        imageProfile?.let {
-            profileViewModel.saveImageProfile(it).observe(viewLifecycleOwner) { stateView ->
-                when (stateView) {
-                    is StateView.Loading -> {
-                        binding.progressBar.isVisible = true
-                    }
-                    is StateView.Sucess -> {
-
-                    }
-                    is StateView.Error -> {
-                        binding.progressBar.isVisible = false
-                        showBottomSheet(message = stateView.message)
-                    }
+                imageProfile?.let {
+                    saveProfileWithImage(it)
+                } ?: run {
+                    validateData()
                 }
             }
         }
@@ -145,12 +131,13 @@ class ProfileFragment : Fragment() {
         if (name.isNotEmpty() || email.isNotEmpty() || phone.isNotEmpty()) {
             hideKeyboard()
 
-            val user = User(
-                name = name,
-                email = email,
-                phone = phone,
-            )
-            saveProfile(user)
+            user?.let {
+                it.name = name
+                it.email = email
+                it.phone = phone
+
+                saveProfile(it)
+            }
         } else {
             showBottomSheet(message = getString(R.string.text_name_empty))
         }
@@ -183,7 +170,32 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun saveProfileWithImage(image: String) {
+        profileViewModel.saveImageProfile(image).observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is StateView.Sucess -> {
+                    stateView.data?.let { user?.image = it }
+                    validateData()
+                }
+                is StateView.Error -> {
+                    binding.progressBar.isVisible = false
+                    showBottomSheet(message = stateView.message)
+                }
+            }
+        }
+    }
+
     private fun configData() {
+        user?.image?.let {
+            if (it.isNotEmpty()) {
+                loadImage(binding.imgUser, it)
+            } else {
+                binding.imgUser.setImageResource(R.drawable.ic_camera)
+            }
+        }
         binding.edtName.setText(user?.name)
         binding.edtPhone.setText(user?.phone)
         binding.edtEmail.setText(user?.email)

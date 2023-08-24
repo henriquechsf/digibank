@@ -2,10 +2,12 @@ package com.example.digitalbank.utils
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.digitalbank.R
 import com.example.digitalbank.databinding.BottomSheetImageBinding
 import com.example.digitalbank.databinding.LayoutBottomSheetBinding
@@ -48,4 +50,13 @@ fun Fragment.hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+}
+
+fun loadImage(
+    imageView: ImageView,
+    path: String
+) {
+    Glide.with(imageView.context)
+        .load(path)
+        .into(imageView)
 }
