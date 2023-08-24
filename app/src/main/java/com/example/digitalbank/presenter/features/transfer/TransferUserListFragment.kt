@@ -11,12 +11,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.digitalbank.R
+import com.example.digitalbank.data.model.User
 import com.example.digitalbank.databinding.FragmentTransferUserListBinding
 import com.example.digitalbank.presenter.features.transfer.adapter.TransferUserAdapter
 import com.example.digitalbank.utils.StateView
 import com.example.digitalbank.utils.initToolbar
 import com.example.digitalbank.utils.showBottomSheet
+import com.ferfalk.simplesearchview.SimpleSearchView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+
 
 @AndroidEntryPoint
 class TransferUserListFragment : Fragment() {
@@ -27,6 +32,8 @@ class TransferUserListFragment : Fragment() {
     private val transferUserListViewModel: TransferUserListViewModel by viewModels()
 
     private lateinit var transferUserAdapter: TransferUserAdapter
+
+    private var profilesList = listOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,7 @@ class TransferUserListFragment : Fragment() {
 
         initRecyclerView()
         getProfileList()
+        configSearchView()
     }
 
     private fun initRecyclerView() {
@@ -67,7 +75,8 @@ class TransferUserListFragment : Fragment() {
 
                 }
                 is StateView.Sucess -> {
-                    transferUserAdapter.submitList(stateView.data)
+                    profilesList = stateView.data ?: emptyList()
+                    transferUserAdapter.submitList(profilesList)
                     binding.progressBar.isVisible = false
                 }
                 is StateView.Error -> {
@@ -83,6 +92,43 @@ class TransferUserListFragment : Fragment() {
         val item = menu.findItem(R.id.action_search)
         binding.searchView.setMenuItem(item)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun configSearchView() = with(binding) {
+        searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return if (newText.isNotEmpty()) {
+                    val newList = profilesList.filter { user ->
+                        user.name.contains(newText, true)
+                    }
+                    transferUserAdapter.submitList(newList)
+                    true
+                } else {
+                    transferUserAdapter.submitList(profilesList)
+                    false
+                }
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextCleared(): Boolean {
+                return false
+            }
+        })
+
+
+
+        searchView.setOnSearchViewListener(object : SimpleSearchView.SearchViewListener {
+            override fun onSearchViewClosed() {
+                transferUserAdapter.submitList(profilesList)
+            }
+
+            override fun onSearchViewClosedAnimation() {}
+            override fun onSearchViewShown() {}
+            override fun onSearchViewShownAnimation() {}
+        })
     }
 
     override fun onDestroyView() {
