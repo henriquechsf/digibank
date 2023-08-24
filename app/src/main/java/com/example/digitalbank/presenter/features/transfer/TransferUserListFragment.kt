@@ -2,12 +2,15 @@ package com.example.digitalbank.presenter.features.transfer
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.digitalbank.R
 import com.example.digitalbank.databinding.FragmentTransferUserListBinding
 import com.example.digitalbank.presenter.features.transfer.adapter.TransferUserAdapter
 import com.example.digitalbank.utils.StateView
@@ -24,6 +27,11 @@ class TransferUserListFragment : Fragment() {
     private val transferUserListViewModel: TransferUserListViewModel by viewModels()
 
     private lateinit var transferUserAdapter: TransferUserAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +50,7 @@ class TransferUserListFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        transferUserAdapter = TransferUserAdapter {userSelected ->
+        transferUserAdapter = TransferUserAdapter { userSelected ->
             Toast.makeText(requireContext(), userSelected.name, Toast.LENGTH_SHORT).show()
         }
 
@@ -53,8 +61,8 @@ class TransferUserListFragment : Fragment() {
     }
 
     private fun getProfileList() {
-        transferUserListViewModel.getProfileList().observe(viewLifecycleOwner) {stateView ->
-            when(stateView) {
+        transferUserListViewModel.getProfileList().observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
                 is StateView.Loading -> {
 
                 }
@@ -68,6 +76,13 @@ class TransferUserListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        val item = menu.findItem(R.id.action_search)
+        binding.searchView.setMenuItem(item)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {

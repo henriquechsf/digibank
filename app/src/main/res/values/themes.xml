@@ -29,4 +29,15 @@
     <style name="CustomBottomSheetWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="CustomSearchViewTheme">
+        <item name="colorSecondary">@color/blue_500</item>
+        <item name="searchBackground">@drawable/bg_search</item>
+        <item name="android:inputType">text</item>
+        <item name="android:hint">@string/search_hint</item>
+        <item name="hintColor">@color/gray_300</item>
+        <item name="backIconTint">@color/blue_500</item>
+        <item name="iconsTint">@color/blue_500</item>
+        <item name="android:textColor">@color/gray_500</item>
+    </style>
 </resources>

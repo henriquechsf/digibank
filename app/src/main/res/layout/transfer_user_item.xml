@@ -22,6 +22,7 @@
             android:id="@+id/img_user"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             tools:src="@drawable/guilherme" />
     </androidx.cardview.widget.CardView>
